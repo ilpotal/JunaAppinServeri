@@ -9,7 +9,9 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
 const createToken = require('../createtoken.js');
 
-let thisday; // luodaan thisday -muuttuja tässä, jotta sitä voidaan käyttää kaikissa metodeissa sisältämään kuluvan päivän. IT
+// luodaan thisday -muuttuja tässä, jotta sitä voidaan käyttää kaikissa metodeissa sisältämään kuluvan päivän. IT
+let thisday = new Date(); // asetetaan muuttujan thisday -arvoksi kuluva päivä. IT
+thisday = thisday.toLocaleDateString('fi-FI');
 
 const UserController = {
   // uuden käyttäjän rekisteröinti
@@ -29,8 +31,7 @@ const UserController = {
             message: 'Käyttäjä on jo olemassa', // Oteaan kiinni tapaus, jossa käyttäjä on jo olemassa, jotta voidaan antaa järkevä virheilmoitus frontendissä. IT
           });
         } else {
-          thisday = new Date(); // asetetaan muuttujan thisday -arvoksi kuluva päivä. IT
-          thisday = thisday.toLocaleDateString(); // asetetaan thisday arvoksi lokalisoitu päivämäärä. IT
+          // asetetaan thisday arvoksi lokalisoitu päivämäärä. IT
           User.create(
             {
               username: req.body.username,
@@ -105,7 +106,7 @@ const UserController = {
                 isadmin: user.isadmin,
                 message: 'Tässä on valmis Token!',
                 visits: user.visits + 1, // palautetaan käyttäjän käyntien määrä, mukaan lukien uusi käynti. IT
-                lastvisitday: user.lastvisitday, // palautetaan edellisen käynnin päivä. IT
+                //lastvisitday: user.lastvisitday, // palautetaan edellisen käynnin päivä. IT
                 regday: user.regday, // palautetaan rekisteröintipäivä. IT
                 token: token,
               });
@@ -119,7 +120,7 @@ const UserController = {
                   username: req.body.username,
                 },
 
-                { $set: { lastvisitday: thisday }, $inc: { visits: 1 } },
+                { $inc: { visits: 1 } },
                 (error, result) => {
                   if (error) {
                     throw error;
