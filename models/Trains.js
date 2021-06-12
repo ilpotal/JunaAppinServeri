@@ -18,7 +18,7 @@ const TrainSchema = new mongoose.Schema({
     max: 80,
   },
   haku_paiva: { type: String, unique: false, required: true, max: 80 },
-  haku_kello: { type: String, unique: false, required: true, max: 80 },
+  haku_kello: { type: String, unique: false, required: false, max: 80 },
 });
 
 // Tässä tehdään Schemasta model, jonka metodeilla kantaoperaatioita voidaan suorittaa.

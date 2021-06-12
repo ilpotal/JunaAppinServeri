@@ -246,12 +246,12 @@ const TrainController = {
       },
     }).catch((error) => {
       console.error(error);
-      arrival_taulu = [{ info: 'VR:n vastaus virheellinen' }];
+      arrival_taulu = [{ info: 'Saatu vastaus virheellinen' }];
       res.json(arrival_taulu);
     });
     const json_comp = await fetch_comp.json().catch((error) => {
       console.error(error);
-      arrival_taulu = [{ info: 'VR:n vastaus virheellinen' }];
+      arrival_taulu = [{ info: 'Saatu vastaus virheellinen' }];
       res.json(arrival_taulu);
     });
 
@@ -315,8 +315,9 @@ const TrainController = {
                 day: '2-digit',
               }
             );
-            lahtoaika = new Date(taulurow.scheduledTime).toLocaleTimeString(); // tässä muutetaan digitraffic -palvelun palauttama kellonaika paikalliseksi
-
+            //console.log(taulurow.scheduledTime);
+            //lahtoaika = new Date(taulurow.scheduledTime).toLocaleTimeString(); // tässä muutetaan digitraffic -palvelun palauttama kellonaika paikalliseksi
+            lahtoaika = taulurow.scheduledTime;
             junanumero = comp.trainNumber; // haetaan junanumero -muuttujan arvoksi trainNumber -kentän arvo.
             junatyyppi = comp.trainType; // haetaan junatyyppi (kuten Pendoliino) -muuttujan arvoksi trainType -kentän arvo.
             lahtoaika = lahtoaika; // ??????
@@ -360,10 +361,12 @@ const TrainController = {
               month: '2-digit',
               day: '2-digit',
             });
+            /*
             valiaseman_lahtoaika = new Date(
               taulurow.scheduledTime
             ).toLocaleTimeString(); // tässä muutetaan digitraffic -palvelun palauttama kellonaika paikalliseksi
-
+*/
+            valiaseman_lahtoaika = taulurow.scheduledTime;
             //valiasema = taulurow.stationShortCode; // asetetaan valiasema -muuttujan arvoksi aseman lyhenne.
 
             // Alla kootaan valiasema_taulu -muuttuja viemällä arvoja valiasema_taulu -tauluun.
@@ -407,10 +410,12 @@ const TrainController = {
               month: '2-digit',
               day: '2-digit',
             });
+            /*
             saapumisaseman_saapumisaika = new Date(
               taulurow.scheduledTime
             ).toLocaleTimeString();
-
+*/
+            saapumisaseman_saapumisaika = taulurow.scheduledTime;
             // tässä junavuoron tiedot koostetaan arrival_tauluun.
             // Arrival_taulu -taulun sisään viedään myös valiasema_taulu.
             // Joten arrival_taulu -taulun yksi "rivi" sisältää tiedot lähtöasemasta ja kohdeasemasta väliasemineen.
@@ -442,7 +447,7 @@ const TrainController = {
 
             const NewTrain = Train({
               haku_paiva: aikaleima_paiva,
-              haku_kello: aikaleima_kello,
+              //haku_kello: aikaleima_kello,
               trainnumber: junanumero,
               junatyyppi: helper.junaTyyppi(junatyyppi),
               lahtoasema: lahtoasema,
@@ -463,7 +468,7 @@ const TrainController = {
         }
       }
     }
-
+    //console.log(arrival_taulu);
     res.json(arrival_taulu);
   },
 };
