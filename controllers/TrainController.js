@@ -12,6 +12,7 @@ const myStations_del = new Map(); // tähän mappiin tallennetaan aseman lyhenne
 const asemaTaulu = [];
 // asemaTaulu-tauluun tallennetaan asemien metatiedot, josta niitä voidaan hyödyntää controllerin merodeissa. Metatiedot haetaan digitraffic-palvelusta,
 //jos taulu on tyhjä, eli käytännössä silloin kun serveri joudutaan käynnistämään uudelleen.
+//restart 07112022
 
 const TrainController = {
   // findAllTrains -metodi hakee kaikki taulun rivin tietokannasta.
