@@ -18,6 +18,8 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const trainsRouter = require('./routes/trains'); // tämän lisäsin. IT
 
+// restart
+
 const app = express();
 
 const corsOptions = {
